@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri Mobil Sport 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Orbitron', Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #0d0d0d;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #00ffcc;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #00ffcc;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px #00ffcc;
+        }
+
+        nav {
+            margin-top: 15px;
+        }
+
+        .nav-btn {
+            background: #333;
+            color: #00ffcc;
+            border: 1px solid #00ffcc;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: #00ffcc;
+            color: #1a1a1a;
+            box-shadow: 0 0 10px #00ffcc;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px; /* Jarak antar item lebih besar */
+            padding: 20px;
+        }
+
+        .gallery-item {
+            background: #2b2b2b;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.5);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 250px; /* Tinggi gambar lebih besar untuk visual yang lebih baik */
+            object-fit: cover;
+            cursor: pointer;
+            border-bottom: 2px solid #00ffcc;
+        }
+
+        .gallery-item .caption {
+            padding: 15px;
+            text-align: center;
+            font-size: 1.1rem;
+            color: #fff;
+            background: #1f1f1f;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-image {
+            max-width: 90%;
+            max-height: 70%;
+            border-radius: 10px;
+            transform: scale(0.8);
+            animation: popIn 0.4s forwards;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
+        }
+
+        @keyframes popIn {
+            to { transform: scale(1); }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 50px;
+            color: #00ffcc;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #ff3366;
+        }
+
+        .nav-prev, .nav-next {
+            background: none;
+            border: none;
+            font-size: 40px;
+            color: #00ffcc;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 10px;
+        }
+
+        .nav-prev { left: 20px; }
+        .nav-next { right: 20px; }
+
+        .nav-prev:hover, .nav-next:hover {
+            color: #ff3366;
+        }
+
+        .lightbox-caption {
+            position: absolute;
+            bottom: 20px;
+            color: #fff;
+            font-size: 1.2rem;
+            text-shadow: 0 0 5px #000;
+        }
+
+        /* Footer */
+        footer {
+            background: #0d0d0d;
+            padding: 20px;
+            text-align: center;
+            border-top: 2px solid #00ffcc;
+            margin-top: 40px;
+        }
+
+        footer p {
+            color: #00ffcc;
+            font-size: 0.9rem;
+        }
+
+        /* Responsif */
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+
+            h1 { font-size: 1.8rem; }
+
+            .nav-btn { padding: 8px 15px; font-size: 0.9rem; }
+        }
+
+        @media (max-width: 480px) {
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .gallery-item img {
+                height: 200px;
+            }
+            .lightbox-image {
+                max-height: 60%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>private vehicle 2030</h1>
+        <nav>
+            <button class="nav-btn" data-filter="all">Show All</button>
+            <button class="nav-btn" data-filter="alien">cars</button>
+            <button class="nav-btn" data-filter="kota">motorcycle</button>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="gallery" id="gallery"></div>
+    </div>
+
+    <div class="lightbox" id="lightbox">
+        <span class="close-btn" onclick="closeLightbox()">×</span>
+        <button class="nav-prev" onclick="prevImage()">❮</button>
+        <img class="lightbox-image" id="lightbox-image" src="">
+        <button class="nav-next" onclick="nextImage()">❯</button>
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+
+    <footer>
+        <p>© 2025 super machine Gallery | Powered by :/</p>
+    </footer>
+
+    <script>
+        const items = [
+            { src: "img/2.jpeg", alt: "mclaren", category: "alien" },
+            { src: "img/3.jpeg", alt: "lamborgini", category: "alien" },
+            { src: "img/6.jpeg", alt: "ninja", category: "kota" },
+            { src: "img/7.jpeg", alt: "ninja", category: "kota" },
+            { src: "img/4.jpeg", alt: "bugatti", category: "alien" },
+            { src: "img/5.jpeg", alt: "supra", category: "alien" },
+            { src: "img/8.jpeg", alt: "ninja", category: "kota" },
+            { src: "img/9.jpeg", alt: "astrea", category: "kota" },
+            
+        ];
+
+        let currentIndex = 0;
+
+        // Tambah gambar ke galeri
+        function loadGallery(filter = "all") {
+            const gallery = document.getElementById("gallery");
+            gallery.innerHTML = "";
+
+            const filteredItems = filter === "all" ? items : items.filter(item => item.category === filter);
+
+            filteredItems.forEach((item, index) => {
+                const div = document.createElement("div");
+                div.classList.add("gallery-item");
+                div.innerHTML = `
+                    <img src="${item.src}" alt="${item.alt}" onclick="openLightbox(${index}, '${filter}')">
+                    <div class="caption">${item.alt}</div>
+                `;
+                gallery.appendChild(div);
+            });
+        }
+
+        // Buka lightbox
+        function openLightbox(index, filter) {
+            const lightbox = document.getElementById("lightbox");
+            const lightboxImage = document.getElementById("lightbox-image");
+            const lightboxCaption = document.getElementById("lightbox-caption");
+
+            const filteredItems = filter === "all" ? items : items.filter(item => item.category === filter);
+            currentIndex = index;
+
+            lightboxImage.src = filteredItems[currentIndex].src;
+            lightboxCaption.textContent = filteredItems[currentIndex].alt;
+            lightbox.classList.add("active");
+        }
+
+        // Tutup lightbox
+        function closeLightbox() {
+            const lightbox = document.getElementById("lightbox");
+            lightbox.classList.remove("active");
+        }
+
+        // Navigasi gambar
+        function prevImage() {
+            const filter = document.querySelector(".nav-btn.active")?.dataset.filter || "all";
+            const filteredItems = filter === "all" ? items : items.filter(item => item.category === filter);
+            currentIndex = (currentIndex - 1 + filteredItems.length) % filteredItems.length;
+            updateLightbox(filteredItems);
+        }
+
+        function nextImage() {
+            const filter = document.querySelector(".nav-btn.active")?.dataset.filter || "all";
+            const filteredItems = filter === "all" ? items : items.filter(item => item.category === filter);
+            currentIndex = (currentIndex + 1) % filteredItems.length;
+            updateLightbox(filteredItems);
+        }
+
+        function updateLightbox(filteredItems) {
+            const lightboxImage = document.getElementById("lightbox-image");
+            const lightboxCaption = document.getElementById("lightbox-caption");
+            lightboxImage.src = filteredItems[currentIndex].src;
+            lightboxCaption.textContent = filteredItems[currentIndex].alt;
+        }
+
+        // Event listener untuk tombol navigasi
+        document.querySelectorAll(".nav-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+                btn.classList.add("active");
+                loadGallery(btn.dataset.filter);
+            });
+        });
+
+        // Tutup lightbox saat klik luar
+        document.getElementById("lightbox").addEventListener("click", (e) => {
+            if (e.target === e.currentTarget) closeLightbox();
+        });
+
+        // Load galeri pertama kali
+        loadGallery();
+    </script>
+</body>
+</html>
